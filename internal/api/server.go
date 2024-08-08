@@ -20,7 +20,6 @@ import (
 
 var API_REQUEST_CONTENT_KEY = "content"
 var AUTHENTICATION_NONCE = "nonce"
-var port = config.WEB_PORT.Get()
 var socketPath = config.UNIX_SOCKET_PATH.Get()
 var pidPath = config.PID_PATH.Get()
 
@@ -71,6 +70,8 @@ func StartServer() error {
 }
 
 func startAPIServer() error {
+	var port = config.WEB_PORT.Get()
+
 	// Remove defer from here, as it's now in StartServer
 	log.Info("API Server Started", log.NewAttr("port", port))
 	return http.ListenAndServe(fmt.Sprintf(":%d", port), core.GetRouteServer(GetRoutes()))
@@ -98,6 +99,8 @@ func startUnixServer() error {
 }
 
 func handleConnection(conn net.Conn) {
+	var port = config.WEB_PORT.Get()
+
 	sizeBuffer := make([]byte, 8)
 	_, err := conn.Read(sizeBuffer)
 	if err != nil {

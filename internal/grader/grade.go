@@ -187,6 +187,4 @@ func runGrader(ctx context.Context, assignment *model.Assignment, submissionPath
 		// We must return very general results (which is why we prefer to catch this at the grader level).
 		return nil, nil, "", "", getTimeoutMessage(assignment), nil
 	}
-
-	return nil, nil, "", "", "", fmt.Errorf("Grading (and timeout) failed.")
 }
